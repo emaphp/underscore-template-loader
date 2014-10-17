@@ -1,0 +1,25 @@
+{
+	"name": "underscore-template-loader",
+	"version": "0.1.0",
+	"description": "A Underscore template loader for Webpack",
+	"main": "index.js",
+	"homepage": "https://github.com/emaphp/underscore-template-loader",
+	"bugs": {
+		"url": "https://github.com/emaphp/underscore-template-loader/isuues"
+	},
+	"author": {
+		"name": "Emmanuel Antico",
+		"email": "emmanuel.antico@gmail.com"
+	},
+	"dependencies": {
+		"underscore": "^1.6.0"
+	},
+	"keywords": [
+		"underscore",
+		"template",
+		"webpack",
+		"loader"
+	],
+	"readme": "...",
+	"readmeFilename": "README.md"
+}
