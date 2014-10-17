@@ -20,6 +20,6 @@
 		"webpack",
 		"loader"
 	],
-	"readme": "...",
+	"readme": "A Underscore template loader for Webpack",
 	"readmeFilename": "README.md"
 }
