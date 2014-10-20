@@ -38,9 +38,9 @@ function readFile(filepath, root) {
 module.exports = function(content) {
     this.cacheable && this.cacheable();
     var callback = this.async();
-    content = resolveContent(content, "./");
+    content = resolveContent(content, this.context);
     var fn = _.template(content);
-    callback(null, "module.exports = " + fn + ";");
+    callback(null, "module.exports = " + fn.source + ";");
 };
 
 module.exports._ = _;
