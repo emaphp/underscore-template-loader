@@ -19,7 +19,7 @@
 		"loader-utils": "^0.2.5"
 	},
 	"peerDependencies": {
-		"underscore": "^1.6.0",
+		"underscore": "^1.6.0"
 	},
 	"keywords": [
 		"underscore",
