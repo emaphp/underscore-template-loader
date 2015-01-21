@@ -6,7 +6,7 @@ module.exports = function() {
 	var fs = require('fs');
 	var includeRegex = /<!--include\s+([\/\w\.]*?[\w]+\.[\w]+)-->/g;
 	
-	var readFile = (filepath, root) {
+	var readFile = function(filepath, root) {
 		var self = readFile;
 		self.buffer = {} || self.buffer;
 		
