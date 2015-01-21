@@ -1,6 +1,6 @@
 {
 	"name": "underscore-template-loader",
-	"version": "0.2.1",
+	"version": "0.2.2",
 	"description": "A Underscore template loader for Webpack",
 	"main": "index.js",
 	"homepage": "https://github.com/emaphp/underscore-template-loader",
@@ -16,8 +16,10 @@
 		"url": "https://github.com/emaphp/underscore-template-loader.git"
 	},
 	"dependencies": {
-		"underscore": "^1.6.0",
 		"loader-utils": "^0.2.5"
+	},
+	"peerDependencies": {
+		"underscore": "^1.6.0",
 	},
 	"keywords": [
 		"underscore",
