@@ -8,11 +8,10 @@ module.exports = function() {
 	
 	var readFile = function(filepath, root) {
 		var self = readFile;
-		self.buffer = {} || self.buffer;
+		self.buffer = self.buffer || {};
 		
-		if (filepath in self.buffer) {
+		if (filepath in self.buffer)
 			return self.buffer[filepath];
-		}
 		
 		var content = resolveContent(fs.readFileSync(path.join(root, filepath), 'utf8'), root);    
 		self.buffer[filepath] = content;
