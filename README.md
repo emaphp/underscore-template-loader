@@ -41,6 +41,7 @@ module.exports = {
         }
     ]
 };
+```
 
 <br/>
 **Loading templates**
