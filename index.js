@@ -5,20 +5,20 @@ module.exports = function() {
 	var path = require('path');
 	var fs = require('fs');
 	var includeRegex = /<!--include\s+([\/\w\.]*?[\w]+\.[\w]+)-->/g;
-	
+
 	var readFile = function(filepath, root) {
 		var self = readFile;
 		self.buffer = self.buffer || {};
-		
+
 		if (filepath in self.buffer)
 			return self.buffer[filepath];
-		
-		var content = readContent(fs.readFileSync(path.join(root, filepath), 'utf8'), root);    
+
+		var content = readContent(fs.readFileSync(path.join(root, filepath), 'utf8'), root);
 		self.buffer[filepath] = content;
 		return self.buffer[filepath];
 	};
-	
-	var readContent = function(content, root) {    
+
+	var readContent = function(content, root) {
 		var matches = includeRegex.exec(content);
 
 		while (matches != null) {
@@ -30,8 +30,15 @@ module.exports = function() {
 
 		return content;
 	};
-	
+
 	return function(content) {
+		if (this.query.length) {
+			var query = loaderUtils.parseQuery(this.query);
+			_.each(query, function(value, key){
+				_.templateSettings[key] = new RegExp(value, 'g');
+			});
+		};
+
 		this.cacheable && this.cacheable();
 		var callback = this.async();
 		content = readContent(content, this.context);
