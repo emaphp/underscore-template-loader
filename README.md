@@ -23,6 +23,25 @@ module.exports = {
     ]
 };
 ```
+<br/>
+**Set underscore template settings**
+```javascript
+module.exports = {
+    //...
+    loaders: [
+        //...
+        {
+          test: /\.html/,
+          loader: "underscore-template-loader",
+          query: {
+            interpolate : '\\{\\[(.+?)\\]\\}',
+            evaluate: '\\{%([\\s\\S]+?)%\\}',
+            escape : '\\{\\{(.+?)\\}\\}'
+          }
+        }
+    ]
+};
+```
 
 <br/>
 **Loading templates**
