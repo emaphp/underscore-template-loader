@@ -1,31 +1,32 @@
 {
-	"name": "underscore-template-loader",
-	"version": "0.2.6",
-	"description": "A Underscore template loader for Webpack",
-	"main": "index.js",
-	"homepage": "https://github.com/emaphp/underscore-template-loader",
-	"bugs": {
-		"url": "https://github.com/emaphp/underscore-template-loader/issues"
-	},
-	"author": {
-		"name": "Emmanuel Antico",
-		"email": "emmanuel.antico@gmail.com"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/emaphp/underscore-template-loader.git"
-	},
-	"dependencies": {
-		"loader-utils": "^0.2.5"
-	},
-	"peerDependencies": {
-		"underscore": ">=1.5.0"
-	},
-	"keywords": [
-		"underscore",
-		"template",
-		"webpack",
-		"loader"
-	],
-	"readmeFilename": "README.md"
+  "name": "underscore-template-loader",
+  "version": "0.3.0",
+  "description": "An Underscore template loader for Webpack",
+  "main": "index.js",
+  "homepage": "https://github.com/emaphp/underscore-template-loader",
+  "bugs": {
+    "url": "https://github.com/emaphp/underscore-template-loader/issues"
+  },
+  "author": {
+    "name": "Emmanuel Antico",
+    "email": "emmanuel.antico@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/emaphp/underscore-template-loader.git"
+  },
+  "dependencies": {
+    "fastparse": "^1.1.1",
+    "loader-utils": "^0.2.11"
+  },
+  "peerDependencies": {
+    "underscore": ">=1.5.0"
+  },
+  "keywords": [
+    "underscore",
+    "template",
+    "webpack",
+    "loader"
+  ],
+  "readmeFilename": "README.md"
 }
