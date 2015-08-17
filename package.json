@@ -19,11 +19,9 @@
     "fastparse": "^1.1.1",
     "loader-utils": "^0.2.11"
   },
-  "peerDependencies": {
-    "underscore": ">=1.5.0"
-  },
   "keywords": [
     "underscore",
+    "lodash",
     "template",
     "webpack",
     "loader"

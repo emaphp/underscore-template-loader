@@ -1,7 +1,7 @@
 underscore-template-loader
 ==========================
 
-An Underscore.js template loader for Webpack
+An Underscore.js and Lodash template loader for Webpack
 
 <br/>
 ###Installation
@@ -10,6 +10,8 @@ An Underscore.js template loader for Webpack
 ```bash
 $ npm install underscore-template-loader
 ```
+
+Make sure you have the `underscore` or `lodash` package installed.
 
 <br/>
 ###Usage
