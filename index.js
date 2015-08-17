@@ -1,9 +1,14 @@
-var _ = require('underscore');
 var path = require('path');
 var fs = require('fs');
 var url = require("url");
 var loaderUtils = require('loader-utils');
 var attributeParser = require('./parser');
+
+try {
+    var _ = require('underscore');
+} catch(e) {
+    var _ = require('lodash');
+}
 
 module.exports = function () {
 	var includeRegex = /<@include\s+([\/\w\.]*?[\w]+\.[\w]+)>/g;

@@ -1,7 +1,7 @@
 {
   "name": "underscore-template-loader",
-  "version": "0.3.0",
-  "description": "An Underscore template loader for Webpack",
+  "version": "0.4.0",
+  "description": "An Underscore and Lodash template loader for Webpack",
   "main": "index.js",
   "homepage": "https://github.com/emaphp/underscore-template-loader",
   "bugs": {
@@ -11,6 +11,14 @@
     "name": "Emmanuel Antico",
     "email": "emmanuel.antico@gmail.com"
   },
+  "contributors": [
+    {
+      "name": "Tommy Dugger (cerinman)"
+    },
+    {
+      "name": "Kees Kluskens (SpaceK33z)"
+    }
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/emaphp/underscore-template-loader.git"
@@ -19,11 +27,9 @@
     "fastparse": "^1.1.1",
     "loader-utils": "^0.2.11"
   },
-  "peerDependencies": {
-    "underscore": ">=1.5.0"
-  },
   "keywords": [
     "underscore",
+    "lodash",
     "template",
     "webpack",
     "loader"
