@@ -181,7 +181,8 @@ module.exports = {
 ####Known issues
 
 <br/>
- * Trying to use different template settings (interpolate, escape, evaluate) for different extensions. Underscore template settings are defined globally.
+ * Trying to use different template settings (interpolate, escape, evaluate) for different extensions. Underscore/Lodash template settings are defined globally.
+ * Attributes not parsed on included templates (needs fix).
 
 <br/>
 ###License
