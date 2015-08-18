@@ -6,51 +6,51 @@ var attributeParser = require('./parser');
 
 try {
     var _ = require('underscore');
-} catch(e) {
+} catch (e) {
     var _ = require('lodash');
 }
 
-module.exports = function () {
-	var includeRegex = /<@include\s+([\/\w\.]*?[\w]+\.[\w]+)>/g;
+module.exports = function() {
+    var includeRegex = /<@include\s+([\/\w\.]*?[\w]+\.[\w]+)>/g;
 
     // Returns a template file content
-	var readFile = function(filepath, root) {
-		var self = readFile;
-		self.buffer = self.buffer || {};
+    var readFile = function(filepath, root) {
+        var self = readFile;
+        self.buffer = self.buffer || {};
 
-		if (filepath in self.buffer) {
-			return self.buffer[filepath];
+        if (filepath in self.buffer) {
+            return self.buffer[filepath];
         }
 
-		var content = readContent(fs.readFileSync(path.join(root, filepath), 'utf8'), root);
-		self.buffer[filepath] = content;
-		return self.buffer[filepath];
-	};
+        var content = readContent(fs.readFileSync(path.join(root, filepath), 'utf8'), root);
+        self.buffer[filepath] = content;
+        return self.buffer[filepath];
+    };
 
     // Parses an external file content
-	var readContent = function(content, root) {
-		var matches = includeRegex.exec(content);
+    var readContent = function(content, root) {
+        var matches = includeRegex.exec(content);
 
-		while (matches != null) {
-			var file = loaderUtils.urlToRequest(matches[1]);
-			var rawContent = readFile(path.basename(file), path.join(root, path.dirname(file)));
-			content = content.replace(matches[0], rawContent);
-			matches = includeRegex.exec(content);
-		}
+        while (matches != null) {
+            var file = loaderUtils.urlToRequest(matches[1]);
+            var rawContent = readFile(path.basename(file), path.join(root, path.dirname(file)));
+            content = content.replace(matches[0], rawContent);
+            matches = includeRegex.exec(content);
+        }
 
-		return content;
-	};
+        return content;
+    };
 
-	return function(content) {
+    return function(content) {
         var query = loaderUtils.parseQuery(this.query);
         var root = query.root;
         var attributes = ['img:src'];
 
         if (_.isObject(query)) {
-			// Apply template settings
-			_.each(_.pick(query, 'interpolate', 'escape', 'evaluate'), function (value, key) {
-				_.templateSettings[key] = new RegExp(value, 'g');
-			});
+            // Apply template settings
+            _.each(_.pick(query, 'interpolate', 'escape', 'evaluate', 'attributes', 'prependFilenameComment'), function(value, key) {
+                _.templateSettings[key] = new RegExp(value, 'g');
+            });
 
             // Set tag+attribute to parse for external resources
             if (query.attributes !== undefined) {
@@ -61,15 +61,15 @@ module.exports = function () {
             if (query.includeRegex !== undefined) {
                 includeRegex = new RegExp(query.includeRegex, 'g');
             }
-		}
+        }
 
         // Generates a random string for further proccessing
-        var randomIdent = function () {
+        var randomIdent = function() {
             return "@@@URL" + Math.random() + "@@@";
         };
 
         // Obtain external resource links
-        var links = attributeParser(content, function (tag, attr) {
+        var links = attributeParser(content, function(tag, attr) {
             return attributes.indexOf(tag + ':' + attr) >= 0;
         });
         links.reverse();
@@ -77,7 +77,7 @@ module.exports = function () {
         // Parse external resources
         var data = {};
         content = [content];
-        links.forEach(function (link) {
+        links.forEach(function(link) {
             // Ignore absolute paths
             if (/^\//.exec(link.value) && root == false) {
                 return;
@@ -107,15 +107,23 @@ module.exports = function () {
         content.reverse();
         content = content.join('');
 
-		this.cacheable && this.cacheable();
-		var callback = this.async();
+        this.cacheable && this.cacheable();
+        var callback = this.async();
 
         // Read file content
-		content = readContent(content, this.context);
+        content = readContent(content, this.context);
+
+        // Prepend a html comment with the filename in it
+        if (query.prependFilenameComment) {
+            var filename = loaderUtils.getRemainingRequest(this);
+            var filenameRelative = path.relative(query.prependFilenameComment, filename);
+
+            content = "\n<!-- " + filenameRelative + "  -->\n" + content;
+        }
 
         // Replace random generated strings with require
         var source = _.template(content).source;
-        content = source.replace(/@@@URL[0-9\.]+@@@/g, function (match) {
+        content = source.replace(/@@@URL[0-9\.]+@@@/g, function(match) {
             if (!data[match]) {
                 return match;
             }
@@ -123,8 +131,8 @@ module.exports = function () {
             return "' + require(" + JSON.stringify(loaderUtils.urlToRequest(data[match], root)) + ") + '";
         });
 
-		callback(null, "module.exports = " + content + ";");
-	};
+        callback(null, "module.exports = " + content + ";");
+    };
 }();
 
 module.exports._ = _;
