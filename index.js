@@ -48,7 +48,7 @@ module.exports = function () {
 
         if (_.isObject(query)) {
 			// Apply template settings
-			_.each(_.pick(query, 'interpolate', 'escape', 'evaluate'), function (value, key) {
+			_.each(_.pick(query, 'interpolate', 'escape', 'evaluate', 'attributes', 'prependFilenameComment'), function (value, key) {
 				_.templateSettings[key] = new RegExp(value, 'g');
 			});
 
@@ -112,6 +112,14 @@ module.exports = function () {
 
         // Read file content
 		content = readContent(content, this.context);
+
+        // Prepend a html comment with the filename in it
+        if (query.prependFilenameComment) {
+            var filename = loaderUtils.getRemainingRequest(this);
+            var filenameRelative = path.relative(query.prependFilenameComment, filename);
+
+            content = "\n<!-- " + filenameRelative + "  -->\n" + content;
+        }
 
         // Replace random generated strings with require
         var source = _.template(content).source;

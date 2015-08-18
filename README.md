@@ -43,6 +43,26 @@ return compiled({name: "world"});
 ```
 
 <br/>
+####Prepending filename comment
+When debugging a large single page app with the DevTools, it's often hard to find the template that contains a bug. With the following config a HTML comment is prepended to the template with the relative path in it (e.g. `<!-- view/user/edit.html -->`).
+
+```javascript
+module.exports = {
+    //...
+    loaders: [
+        //...
+        {
+            test: /\.html$/,
+            loader: "underscore-template-loader",
+            query: {
+              prependFilenameComment: __dirname,
+            }
+        }
+    ]
+};
+```
+
+<br/>
 ####Template settings
 
 <br>
