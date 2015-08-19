@@ -83,7 +83,7 @@ module.exports = function() {
         // Resolve attributes
         source = attributesContext.resolveAttributes(source);
 
-        callback(null, "module.exports = " + content + ";");
+        callback(null, "module.exports = " + source + ";");
     };
 }();
 
