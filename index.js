@@ -25,7 +25,7 @@ module.exports = function() {
             attributes = ['img:src'];
 
         // Parse arguments
-        var query = loaderUtils.parseQuery(this.query);
+        var query = this.query instanceof Object ? this.query : loaderUtils.parseQuery(this.query);
 
         if (_.isObject(query)) {
             root = query.root;
@@ -47,9 +47,8 @@ module.exports = function() {
 
             // Prepend a html comment with the filename in it
             if (query.prependFilenameComment) {
-                var filename = loaderUtils.getRemainingRequest(this);
-                var filenameRelative = path.relative(query.prependFilenameComment, filename);
-                content = "\n<!-- " + filenameRelative + "  -->\n" + content;
+                var filenameRelative = path.relative(query.prependFilenameComment, this.resource);
+                content = "\n<!-- " + filenameRelative + " -->\n" + content;
             }
         }
 

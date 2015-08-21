@@ -1,0 +1,7 @@
+module.exports = function(obj){
+var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
+with(obj||{}){
+__p+='Hi.\n@br(3)\n@nl(2)\n';
+}
+return __p;
+};

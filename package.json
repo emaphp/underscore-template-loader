@@ -7,6 +7,7 @@
   "bugs": {
     "url": "https://github.com/emaphp/underscore-template-loader/issues"
   },
+  "license": "MIT",
   "author": {
     "name": "Emmanuel Antico",
     "email": "emmanuel.antico@gmail.com"
@@ -26,6 +27,17 @@
   "dependencies": {
     "fastparse": "^1.1.1",
     "loader-utils": "^0.2.11"
+  },
+  "devDependencies": {
+    "async": "^1.4.2",
+    "chai": "^3.2.0",
+    "chai-string": "^1.1.2",
+    "mocha": "^2.2.5",
+    "sinon": "^1.15.4",
+    "underscore": "^1.8.3"
+  },
+  "scripts": {
+    "test": "mocha"
   },
   "keywords": [
     "underscore",
