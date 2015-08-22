@@ -6,14 +6,8 @@ chai.use(require('chai-string'));
 
 var loader = require('../');
 var WebpackLoaderMock = require('./lib/WebpackLoaderMock');
-
-function loadTemplate(templatePath) {
-    return fs.readFileSync(path.join(__dirname, 'templates', templatePath)).toString();
-}
-
-function loadOutput(outputPath) {
-    return fs.readFileSync(path.join(__dirname, 'templates/output', outputPath)).toString();
-}
+var loadTemplate = require('./lib/loadTemplate');
+var loadOutput = require('./lib/loadOutput');
 
 function testTemplate(loader, template, options, testFn) {
     loader.call(new WebpackLoaderMock({
@@ -92,36 +86,6 @@ describe('loader', function () {
             }
         }, function (output) {
             assert.equal(output, loadOutput('absolute-image-with-root.txt'));
-            done();
-        });
-    });
-
-    // FIXME: Macro's don't work if they are the first element
-    // This should be tested in a separate test of macroParser.js
-    // Webpack's html-loader has some nice tests for this:
-    // https://github.com/webpack/html-loader/blob/master/test/parserTest.js
-    it('should parse a custom macro', function (done) {
-        testTemplate(loader, 'custom-macro.html', {
-            options: {
-                macros: {
-                    foo: function () {
-                        return '"<p>bar</p>"';
-                    }
-                }
-            }
-        }, function (output) {
-            assert.equal(output, loadOutput('custom-macro.txt'));
-            done();
-        });
-    });
-
-    it('should be possible to disable macros', function (done) {
-        testTemplate(loader, 'macro.html', {
-            query: {
-                parseMacros: false
-            }
-        }, function (output) {
-            assert.equal(output, loadOutput('disabled-macro.txt'));
             done();
         });
     });
