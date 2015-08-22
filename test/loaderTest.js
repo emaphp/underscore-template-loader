@@ -1,10 +1,7 @@
-var async = require('async');
 var fs = require('fs');
 var path = require('path');
-var sinon = require('sinon');
 var chai = require('chai');
 var assert = chai.assert;
-var expect = chai.expect;
 chai.use(require('chai-string'));
 
 var loader = require('../');

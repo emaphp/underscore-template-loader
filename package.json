@@ -29,15 +29,15 @@
     "loader-utils": "^0.2.11"
   },
   "devDependencies": {
-    "async": "^1.4.2",
     "chai": "^3.2.0",
     "chai-string": "^1.1.2",
+    "istanbul": "^0.3.18",
     "mocha": "^2.2.5",
-    "sinon": "^1.15.4",
     "underscore": "^1.8.3"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "cover": "istanbul cover node_modules/mocha/bin/_mocha"
   },
   "keywords": [
     "underscore",
