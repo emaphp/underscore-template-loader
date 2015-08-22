@@ -219,7 +219,7 @@ While the `require` macro expects a resource that returns a function, the `inclu
 ```
 
 <br>
-####'br' and 'nl'
+####*br* and *nl*
 
 <br>
 The `br` and `nl` macros insert a `<br>` tag and a new line respectively. They accept a optional argument with the amount of strings to insert.
@@ -333,12 +333,12 @@ module.exports = {
 ####Escaping
 
 <br>
-Macro expressions can be escaped with the `/` character.
+Macro expressions can be escaped with the `\` character.
 
 <br>
 ```html
 @br(3)
-\nl()
+\@nl()
 @br()
 ```
 
