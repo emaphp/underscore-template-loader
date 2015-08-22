@@ -1,0 +1,7 @@
+module.exports = function(obj){
+var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
+with(obj||{}){
+__p+='' + "<p>1</p><p>3.534</p><p>5</p>" + '\n' + "<p>TRUE</p><p>FALSE</p><p>TRUE</p>" + '\n' + "<p>lorem</p><p>ipsum</p><p>\"sit\"</p><p>'amet'</p>" + '\n' + "<p>FALSE</p><p>423.429</p><p>hello world</p><p>TRUE</p><p>lorem</p><p>3</p>" + '';
+}
+return __p;
+};
