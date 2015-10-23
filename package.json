@@ -1,6 +1,6 @@
 {
   "name": "underscore-template-loader",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "An Underscore and Lodash template loader for Webpack",
   "main": "index.js",
   "homepage": "https://github.com/emaphp/underscore-template-loader",
@@ -18,6 +18,9 @@
     },
     {
       "name": "Kees Kluskens (SpaceK33z)"
+    },
+    {
+	  "name": "Pascal (pascalpp)"
     }
   ],
   "repository": {
