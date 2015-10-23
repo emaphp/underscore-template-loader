@@ -32,6 +32,11 @@ module.exports = function(content) {
             _.templateSettings[key] = new RegExp(value, 'g');
         });
 
+        // Apply template variable
+        if (query.variable !== undefined) {
+            _.templateSettings.variable = query.variable;
+        }
+
         // Set tag+attribute to parse for external resources
         if (query.attributes !== undefined) {
             attributes = _.isArray(query.attributes) ? query.attributes : [];
