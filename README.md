@@ -4,6 +4,12 @@ underscore-template-loader
 An Underscore.js and Lodash template loader for Webpack
 
 <br>
+###Changelog
+
+<br>
+ * 0.6.0: Added support for [html-webpack-plugin](https://github.com/ampedandwired/html-webpack-plugin "") (thx @jantimon).
+
+<br>
 ###Installation
 
 <br>
