@@ -20,7 +20,7 @@
       "name": "Kees Kluskens (SpaceK33z)"
     },
     {
-	  "name": "Pascal (pascalpp)"
+      "name": "Pascal (pascalpp)"
     }
   ],
   "repository": {
@@ -29,7 +29,8 @@
   },
   "dependencies": {
     "fastparse": "^1.1.1",
-    "loader-utils": "^0.2.11"
+    "loader-utils": "^0.2.11",
+    "lodash": "^4.0.0"
   },
   "devDependencies": {
     "chai": "^3.2.0",

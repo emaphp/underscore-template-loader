@@ -18,5 +18,5 @@ module.exports = function (source) {
     return source;
   }
 
-  return query.url;
+  return 'module.exports = ' + JSON.stringify(query.url);
 };
