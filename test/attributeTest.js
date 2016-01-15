@@ -9,6 +9,8 @@ var attributes = ['img:src', 'link:href'];
 // Helper to test the attributeParser.
 function testMatch(name, html, result) {
     it('should parse ' + name, function() {
+        // The loader has an absolute path so we have to use a placeholder:
+
         var parsed = attributeParser(html, function(tag, attr) {
             return attributes.indexOf(tag + ':' + attr) != -1;
         }, 'ATTRIBUTE', '/asdf/');
