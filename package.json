@@ -52,5 +52,10 @@
     "webpack",
     "loader"
   ],
-  "readmeFilename": "README.md"
+  "readmeFilename": "README.md",
+  "eslintConfig": {
+    "env": {
+      "node": true
+    }
+  }
 }
