@@ -1,0 +1,16 @@
+var _ = require('underscore');
+module.exports = function(obj){
+var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
+with(obj||{}){
+__p+='<h1>'+
+((__t=(title))==null?'':_.escape(__t))+
+'</h1>\n<p>A simple template</p>\n\n';
+if (description) {
+__p+='\n<p>'+
+((__t=(description))==null?'':_.escape(__t))+
+'</p>\n';
+}
+__p+='\n';
+}
+return __p;
+};

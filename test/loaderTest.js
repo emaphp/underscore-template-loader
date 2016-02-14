@@ -40,6 +40,51 @@ describe('loader', function () {
         });
     });
 
+    it('should use underscore as the engine when specified', function (done) {
+        testTemplate(loader, 'simple.html', {
+            query: {
+                engine: 'underscore'
+            }
+        }, function (output) {
+            assert.equal(output, loadOutput('simple-underscore.txt'));
+            done();
+        });
+    });
+
+    it('should use lodash as the engine when specified and include imports automatically', function (done) {
+        testTemplate(loader, 'simple.html', {
+            query: {
+                engine: 'lodash'
+            }
+        }, function (output) {
+            assert.equal(output, loadOutput('simple-lodash.txt'));
+            done();
+        });
+    });
+
+    it('should include the template imports when withImports is true', function (done) {
+        testTemplate(loader, 'simple.html', {
+            query: {
+                withImports: true
+            }
+        }, function (output) {
+            assert.equal(output, loadOutput('simple-with-imports.txt'));
+            done();
+        });
+    });
+
+    it('should NOT include template imports when withImports is false', function (done) {
+        testTemplate(loader, 'simple.html', {
+            query: {
+                engine: 'lodash',
+                withImports: false
+            }
+        }, function (output) {
+            assert.equal(output, loadOutput('simple-lodash-no-imports.txt'));
+            done();
+        });
+    });
+
     it('should be possible to require a template', function (done) {
         testTemplate(loader, 'require.html', {}, function (output) {
             assert.equal(output, loadOutput('require.txt'));
