@@ -19,7 +19,7 @@ module.exports = function(content) {
     // Default arguments
     var root,
         parseMacros = true,
-        engine = 'underscore',
+        engine = false,
         withImports = false,
         attributes = ['img:src'];
 
