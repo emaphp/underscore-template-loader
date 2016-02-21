@@ -19,6 +19,8 @@ module.exports = function(content) {
     // Default arguments
     var root,
         parseMacros = true,
+        engine = false,
+        withImports = false,
         attributes = ['img:src'];
 
     // Parse arguments
@@ -45,6 +47,18 @@ module.exports = function(content) {
         // Parse / ignore macros
         if (query.parseMacros !== undefined) {
             parseMacros = !!query.parseMacros;
+        }
+
+        // Template engine
+        if (query.engine !== undefined) {
+            engine = query.engine;
+        }
+
+        // Template settings imports (on by default for lodash)
+        if (query.withImports !== undefined) {
+            withImports = query.withImports;
+        } else if (engine === 'lodash') {
+            withImports = true;
         }
 
         // Prepend a html comment with the filename in it
@@ -83,7 +97,20 @@ module.exports = function(content) {
 
     // Resolve attributes
     source = attributesContext.resolveAttributes(source);
-    callback(null, "module.exports = " + source + ";");
+
+    // Build the module export, optionally with template imports
+    if (withImports) {
+        source = 'module.exports = Function(_.keys(_.templateSettings.imports), \'return \' + ' + source + '.toString()).apply(undefined, _.values(_.templateSettings.imports));\n';
+    } else {
+        source = 'module.exports = ' + source + ';\n';
+    }
+
+    // Explicitly require the engine, otherwise it will rely on the global _
+    if (engine) {
+        source = 'var _ = require(\'' + engine + '\');\n' + source;
+    }
+
+    callback(null, source);
 };
 
 module.exports._ = _;
