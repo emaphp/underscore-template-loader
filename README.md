@@ -7,7 +7,7 @@ An Underscore.js and Lodash template loader for Webpack
 ###Changelog
 
 <br>
- * 0.6.0: Added support for [html-webpack-plugin](https://github.com/ampedandwired/html-webpack-plugin "") (thx @jantimon).
+ * 0.7.0: Enable _.templateSettings.imports support (thx @kmck).
 
 <br>
 ###Installation
@@ -258,7 +258,7 @@ module.exports = {
     
     macros: {
         copyright: function () {
-            return "'<p>Copyright FakeCorp 2014 - 2015</p>'";
+            return "'<p>Copyright FakeCorp 2014 - 2016</p>'";
         }
     }
 }

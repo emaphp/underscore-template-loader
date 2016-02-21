@@ -1,6 +1,6 @@
 {
   "name": "underscore-template-loader",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "An Underscore and Lodash template loader for Webpack",
   "main": "index.js",
   "homepage": "https://github.com/emaphp/underscore-template-loader",
@@ -24,6 +24,9 @@
     },
     {
       "name": "Jan Nicklas (jantimon)"
+    },
+    {
+      "name": "Keith McKnight (kmck)"
     }
   ],
   "repository": {
