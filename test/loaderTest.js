@@ -135,6 +135,27 @@ describe('loader', function () {
         });
     });
 
+    it('should leave dynamic attributes unaltered', function (done) {
+        testTemplate(loader, 'dynamic-attribute.html', {
+            query: {
+            }
+        }, function (output) {
+            assert.equal(output, loadOutput('dynamic-attribute.txt'));
+            done();
+        });
+    });
+    
+    it('should leave dynamic attributes unaltered with root', function (done) {
+        testTemplate(loader, 'dynamic-attribute-with-root.html', {
+            query: {
+                root: '/bar'
+            }
+        }, function (output) {
+            assert.equal(output, loadOutput('dynamic-attribute-with-root.txt'));
+            done();
+        });
+    });
+    
     // FIXME: Changing the underscore tags changes it globally
     it('should allow custom underscore tags', function (done) {
         testTemplate(loader, 'custom-tags.html', {

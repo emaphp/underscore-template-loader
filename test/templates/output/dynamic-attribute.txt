@@ -1,0 +1,11 @@
+module.exports = function(obj){
+var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
+with(obj||{}){
+__p+='<img src="/img/cat-'+
+((__t=( currentCat.url ))==null?'':_.escape(__t))+
+'.png" class="cat-img">\n<img src="img/dog-'+
+((__t=( currentDog.url ))==null?'':_.escape(__t))+
+'.png" class="dog-img">\n';
+}
+return __p;
+};
