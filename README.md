@@ -7,7 +7,7 @@ An Underscore.js and Lodash template loader for Webpack
 ###Changelog
 
 <br>
- * 0.7.1: FIX: Check if attribute contains a template expression before replace it.
+ * 0.7.1: FIX: Check if attribute contains a template expression before replacing it.
 
 <br>
 ###Installation
