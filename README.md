@@ -3,27 +3,21 @@ underscore-template-loader
 
 An Underscore.js and Lodash template loader for Webpack
 
-<br>
-###Changelog
+### Changelog
 
 <br>
  * 0.7.1: FIX: Check if attribute contains a template expression before replacing it.
 
-<br>
-###Installation
+### Installation
 
-<br>
 ```bash
 npm install underscore-template-loader
 ```
 
-<br>
 Make sure you have the `underscore` or `lodash` package installed.
 
-<br>
-###Usage
+### Usage
 
-<br>
 ```javascript
 module.exports = {
     //...
@@ -35,32 +29,48 @@ module.exports = {
 };
 ```
 
-<br>
-####Loading templates
+#### Template engine
 
-<br>
+You can specify an engine to specify the library used when you call underscore methods inside the template if you don't want to rely on the global `_` that is used by default.
+
+```javascript
+module.exports = {
+    //...
+
+    module: {
+        loaders: [
+            {
+                test: /\.html$/,
+                loader: "underscore-template-loader",
+                query: {
+                    engine: 'lodash',
+                }
+            }
+        ]
+    }
+};
+```
+
+#### Loading templates
+
 ```html
 <!-- File: hello.html -->
 <p>Hello&nbsp;<%=name%></p>
 ```
 
-<br>
 ```javascript
 var compiled = require('./hello.html');
 return compiled({name: "world"});
 ```
 
-<br>
-####Prepending filename comment
+#### Prepending filename comment
 
-<br>
 When debugging a large single page app with the DevTools, it's often hard to find the template that contains a bug. With the following config a HTML comment is prepended to the template with the relative path in it (e.g. `<!-- view/user/edit.html -->`).
 
-<br>
 ```javascript
 module.exports = {
     //...
-    
+
     module: {
         loaders: [
             {
@@ -75,14 +85,14 @@ module.exports = {
 };
 ```
 
-<br>
-####Template settings
+#### Template settings
 
-<br>
+You can override the delimiters used to determine data to injected (HTML-escaped or not) or code to evaluate in the templates.
+
 ```javascript
 module.exports = {
     //...
-    
+
     module: {
         loaders: [
             //...
@@ -90,9 +100,9 @@ module.exports = {
                 test: /\.html$/,
                 loader: "underscore-template-loader",
                 query: {
-                    interpolate : '\\{\\[(.+?)\\]\\}',
+                    interpolate: '\\{\\[(.+?)\\]\\}',
                     evaluate: '\\{%([\\s\\S]+?)%\\}',
-                    escape : '\\{\\{(.+?)\\}\\}'
+                    escape: '\\{\\{(.+?)\\}\\}'
                 }
             }
         ]
@@ -100,13 +110,52 @@ module.exports = {
 };
 ```
 
-<br>
-####Images
+#### Template imports
 
-<br>
+[`_.templateSettings.imports`](https://lodash.com/docs#templateSettings-imports) automatically includes variables or functions in your templates. This is useful when you have utility functions that you want to make available to all templates without explicitly passing them in every time the template is used.
+
+```html
+<!-- File: hello.html -->
+<p><%= greet(name) %></p>
+```
+
+```javascript
+var _ = require('lodash');
+// Imports must be defined before the template is required
+_.templateSettings.imports = {
+    greet: function(name) {
+        return 'Hello, ' + name + '!';
+    },
+};
+var compiled = require('./hello.html');
+return compiled({name: "world"});
+```
+
+This is enabled by default when `lodash` is the engine used, but can be explicitly toggled using `withImports` option.
+
+```javascript
+module.exports = {
+    //...
+
+    module: {
+        loaders: [
+            //...
+            {
+                test: /\.html$/,
+                loader: "underscore-template-loader",
+                query: {
+                    withImports: true,
+                }
+            }
+        ]
+    }
+};
+```
+
+#### Images
+
 In order to load images you must install either the *file-loader* or the *url-loader* package.
 
-<br>
 ```javascript
 module.exports = {
     //...
@@ -121,7 +170,6 @@ module.exports = {
 };
 ```
 
-<br>
 ```html
 <!-- Require image using file-loader -->
 <img src="img/portrait.jpg">
@@ -130,10 +178,8 @@ module.exports = {
 <img src="img/icon.png">
 ```
 
-<br>
 Images with an absolute path are not translated unless a `root` option is defined
 
-<br>
 ```html
 <!-- Using root = undefined => no translation -->
 <img src="/not_translated.jpg">
@@ -142,7 +188,6 @@ Images with an absolute path are not translated unless a `root` option is define
 <img src="/image.jpg">
 ```
 
-<br>
 In order to deactivate image processing define `attributes` as an empty array.
 
 ```javascript
@@ -163,7 +208,6 @@ module.exports = {
 };
 ```
 
-<br>
 You could also add which attributes need to be processed in the form of pairs *tag:attribute*.
 
 ```javascript
@@ -185,19 +229,14 @@ module.exports = {
 };
 ```
 
-<br>
-###Macros
+### Macros
 
-<br>
 Macros allow additional features like including templates or inserting custom text in compiled templates.
 
-<br>
-####The *require* macro
+#### The *require* macro
 
-<br>
 The `require` macro expects a path to a underscore template. The macro is then translated into a webpack require expression that evaluates the template using the same arguments.
 
-<br>
 ```html
 <h4>Profile</h4>
 
@@ -209,10 +248,8 @@ Surname: <strong><%=surname%></strong>
 </div>
 ```
 
-<br>
-####The *include* macro
+#### The *include* macro
 
-<br>
 While the `require` macro expects a resource that returns a function, the `include` macro can be used for resources that return plain text. For example, we can include text loaded through the `html-loader` directly in our template.
 
 ```html
@@ -224,10 +261,8 @@ While the `require` macro expects a resource that returns a function, the `inclu
 </div>
 ```
 
-<br>
-####*br* and *nl*
+#### *br* and *nl*
 
-<br>
 The `br` and `nl` macros insert a `<br>` tag and a new line respectively. They accept a optional argument with the amount of strings to insert.
 
 ```html
@@ -237,13 +272,10 @@ The `br` and `nl` macros insert a `<br>` tag and a new line respectively. They a
 @nl()
 ```
 
-<br>
-####Custom macros
+#### Custom macros
 
-<br>
 We can include additional macros by defining them in the webpack configuration file. Remember that the value returned by a macro is inserted as plain javascript, so in order to insert a custom text we need to use nested quotes. For example, let's say that we want a macro that includes a copyright string in our template.
 
-<br>
 ```javascript
 // File: webpack.config.js
 module.exports = {
@@ -255,7 +287,7 @@ module.exports = {
             { test: /\.html$/, loader: "underscore-template-loader" },
         }
     },
-    
+
     macros: {
         copyright: function () {
             return "'<p>Copyright FakeCorp 2014 - 2016</p>'";
@@ -264,27 +296,22 @@ module.exports = {
 }
 ```
 
-<br>
 We then invoke this macro from within the template as usual.
 
-<br>
 ```html
 <footer>
     @copyright()
 </footer>
 ```
 
-<br>
-####Disabling macros
+#### Disabling macros
 
-<br>
 You can disable macros if you are a bit unsure about their usage or just simply want faster processing. This is achieved by setting the `parseMacros` options to false.
 
-<br>
 ```javascript
 module.exports = {
     // ...
-    
+
     module: {
         loaders: {
             // ...
@@ -300,13 +327,10 @@ module.exports = {
 }
 ```
 
-<br>
-####Arguments
+#### Arguments
 
-<br>
 Macros can accept an arbitrary number of arguments. Only boolean, strings and numeric types are supported.
 
-<br>
 ```javascript
 // File: webpack.config.js
 module.exports = {
@@ -318,7 +342,7 @@ module.exports = {
             { test: /\.html$/, loader: "underscore-template-loader" },
         }
     },
-    
+
     macros: {
         header: function (size, content) {
             return "'<h" + size + ">" + content + "</h" + size + ">'";
@@ -327,7 +351,6 @@ module.exports = {
 }
 ```
 
-<br>
 ```html
 @header(1, 'Welcome')
 <p>Lorem ipsum</p>
@@ -335,36 +358,28 @@ module.exports = {
 <p>Sit amet</p>
 ```
 
-<br>
-####Escaping
+#### Escaping
 
-<br>
 Macro expressions can be escaped with the `\` character.
 
-<br>
 ```html
 @br(3)
 \@nl()
 @br()
 ```
 
-<br>
 Translates to
 
-<br>
 ```html
 <br><br><br>
 @nl()
 <br>
 ```
 
-<br>
-####Known issues
+#### Known issues
 
-<br>
  * Trying to use different template settings (interpolate, escape, evaluate) for different extensions. Underscore / Lodash template settings are defined globally.
 
-<br>
-###License
+### License
 
 Released under the MIT license.
