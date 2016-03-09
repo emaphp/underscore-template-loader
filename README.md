@@ -6,7 +6,7 @@ An Underscore.js and Lodash template loader for Webpack
 ### Changelog
 
 <br>
- * 0.7.1: FIX: Check if attribute contains a template expression before replacing it.
+ * 0.7.2: Support for the `parseDynamicRoutes` argument (deactivated by default).
 
 ### Installation
 
@@ -227,6 +227,39 @@ module.exports = {
         ]
     }
 };
+```
+
+Dynamic attributes won't be afected by this behaviour by default.
+
+```html
+<!-- Ignore "root" argument if attribute contains a template expression -->
+<img src="/img/cat-<%- currentCat.url %>.png" class="cat-img">
+```
+
+In order to append the root directory you'll need to specify the `parseDynamicRoutes` argument.
+
+```javascript
+module.exports = {
+    //...
+
+    module: {
+        loaders: [
+            {
+                test: /\.html$/,
+                loader: "underscore-template-loader",
+                query: {
+                    root: "myapp",
+                    parseDynamicRoutes: true
+                }
+            }
+        ]
+    }
+};
+```
+
+```html
+<!-- Attribute now translates to "myapp/img/cat-<%- currentCat.url %>.png" -->
+<img src="/img/cat-<%- currentCat.url %>.png" class="cat-img">
 ```
 
 ### Macros

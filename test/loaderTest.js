@@ -155,6 +155,18 @@ describe('loader', function () {
             done();
         });
     });
+
+    it('should parse dynamic attributes with parseDynamicRoutes', function (done) {
+        testTemplate(loader, 'dynamic-attribute-with-parseDynamicRoutes.html', {
+            query: {
+                root: 'myapp',
+                parseDynamicRoutes: true
+            }
+        }, function (output) {
+            assert.equal(output, loadOutput('dynamic-attribute-with-parseDynamicRoutes.txt'));
+            done();
+        });
+    });
     
     // FIXME: Changing the underscore tags changes it globally
     it('should allow custom underscore tags', function (done) {
