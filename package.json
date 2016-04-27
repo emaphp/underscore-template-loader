@@ -1,6 +1,6 @@
 {
   "name": "underscore-template-loader",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "description": "An Underscore and Lodash template loader for Webpack",
   "main": "index.js",
   "homepage": "https://github.com/emaphp/underscore-template-loader",

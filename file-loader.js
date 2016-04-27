@@ -1,7 +1,6 @@
 /* This loader returns the filename if no loader takes care of the file */
 'use strict';
 
-var _ = require('lodash');
 var loaderUtils = require('loader-utils');
 
 module.exports = function (source) {
