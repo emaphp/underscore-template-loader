@@ -1,4 +1,4 @@
-module.exports = Function(_.keys(_.templateSettings.imports), 'return ' + function(obj){
+module.exports = Function(['_'].concat(_.keys(_.templateSettings.imports)), 'return ' + function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
 with(obj||{}){
 __p+='<h1>'+
@@ -12,4 +12,4 @@ __p+='\n<p>'+
 __p+='\n';
 }
 return __p;
-}.toString()).apply(undefined, _.values(_.templateSettings.imports));
+}.toString()).apply(undefined, [_].concat(_.values(_.templateSettings.imports)));
