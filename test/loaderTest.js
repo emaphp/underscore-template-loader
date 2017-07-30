@@ -92,6 +92,13 @@ describe('loader', function () {
         });
     });
 
+  it('should be possible to require a template with custom args', function (done) {
+    testTemplate(loader, 'require_with_args.html', {}, function (output) {
+      assert.equal(output, loadOutput('require_with_args.txt'));
+      done();
+    });
+  });
+
     it('should be possible to include a template', function (done) {
         testTemplate(loader, 'include.html', {}, function (output) {
             assert.equal(output, loadOutput('include.txt'));

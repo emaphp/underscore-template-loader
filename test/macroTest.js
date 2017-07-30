@@ -8,6 +8,7 @@ var loader = require('../');
 var WebpackLoaderMock = require('./lib/WebpackLoaderMock');
 var loadTemplate = require('./lib/loadTemplate');
 var loadOutput = require('./lib/loadOutput');
+var toText = require('./lib/toText.js');
 
 function testTemplate(loader, template, options, testFn) {
     loader.call(new WebpackLoaderMock({
@@ -84,6 +85,22 @@ describe('macro', function () {
         });
     });
 
+  it('should receive object arguments', function(done) {
+    testTemplate(loader, 'macro_object_args.html', {
+      options: {
+        macros: {
+          object_test: function(arg) {
+            assert.typeOf(arg, 'object');
+            return '"' + toText(arg) + '"';
+          }
+        }
+      }
+    }, function(output) {
+      assert.equal(output.trimRight(), loadOutput('macro_object_args.txt').trimRight());
+      done();
+    });
+  });
+
     it('should receive argument list', function (done) {
         testTemplate(loader, 'macro_argument_list.html', {
             options: {
@@ -92,7 +109,7 @@ describe('macro', function () {
                         assert.typeOf(first, 'number');
                         assert.typeOf(second, 'number');
                         assert.typeOf(third, 'number');
-                        
+
                         var output = '';
                         for (var i = 0; i < arguments.length; i++) {
                             output += '<p>' + arguments[i] + '</p>';
@@ -104,7 +121,7 @@ describe('macro', function () {
                         assert.typeOf(first, 'boolean');
                         assert.typeOf(second, 'boolean');
                         assert.typeOf(third, 'boolean');
-                        
+
                         var output = '';
                         for (var i = 0; i < arguments.length; i++) {
                             output += '<p>' + (arguments[i] ? 'TRUE' : 'FALSE') + '</p>';
@@ -116,7 +133,7 @@ describe('macro', function () {
                         assert.typeOf(first, 'string');
                         assert.typeOf(second, 'string');
                         assert.typeOf(third, 'string');
-                        
+
                         var output = '';
                         for (var i = 0; i < arguments.length; i++) {
                             output += '<p>' + arguments[i].toLowerCase().replace(/"/g, "\\\"") + '</p>';

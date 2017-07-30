@@ -6,7 +6,7 @@ An Underscore.js and Lodash template loader for Webpack
 ### Changelog
 
 <br>
- * 0.7.2: Support for the `parseDynamicRoutes` argument (deactivated by default).
+ * 0.8: Macros now support object literals as arguments
 
 ### Installation
 
@@ -281,6 +281,14 @@ Surname: <strong><%=surname%></strong>
 </div>
 ```
 
+This macro also supports an object literal as an additional argument.
+
+```html
+<div class="top-section">
+    @require('header.html', {"title": "First Section"})
+</div>
+```
+
 #### The *include* macro
 
 While the `require` macro expects a resource that returns a function, the `include` macro can be used for resources that return plain text. For example, we can include text loaded through the `html-loader` directly in our template.
@@ -362,7 +370,7 @@ module.exports = {
 
 #### Arguments
 
-Macros can accept an arbitrary number of arguments. Only boolean, strings and numeric types are supported.
+Macros can accept an arbitrary number of arguments of different types: boolean, strings, numbers an object literals are supported.
 
 ```javascript
 // File: webpack.config.js

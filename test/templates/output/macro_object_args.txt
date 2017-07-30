@@ -1,0 +1,8 @@
+module.exports = function(obj){
+var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
+with(obj||{}){
+__p+='' + "<a>1</a><b>20</b><c>300</c><d>true</d>" + '\n<br>\n' + "<a></a><b>1,20</b><c><name>emma</name><role>dev</role></c>" + '<small>dont\' parse this</small>\n';
+}
+return __p;
+};
+
