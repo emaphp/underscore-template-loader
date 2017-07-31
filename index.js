@@ -106,7 +106,7 @@ module.exports = function(content) {
 
     // Build the module export, optionally with template imports
     if (withImports) {
-        source = 'module.exports = Function(_.keys(_.templateSettings.imports), \'return \' + ' + source + '.toString()).apply(undefined, _.values(_.templateSettings.imports));\n';
+        source = 'module.exports = Function([\'_\'].concat(_.keys(_.templateSettings.imports)), \'return \' + ' + source + '.toString()).apply(undefined, [_].concat(_.values(_.templateSettings.imports)));\n';
     } else {
         source = 'module.exports = ' + source + ';\n';
     }

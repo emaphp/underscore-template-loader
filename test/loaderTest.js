@@ -1,3 +1,6 @@
+var underscore = require('underscore');
+var lodash = require('lodash');
+var requireFromString = require('require-from-string');
 var fs = require('fs');
 var path = require('path');
 var chai = require('chai');
@@ -174,7 +177,53 @@ describe('loader', function () {
             done();
         });
     });
-    
+
+    it('should include the required engine as `_` when withImports is true', function (done) {
+        underscore.ENGINE_NAME = 'UNDERSCORE';
+        lodash.ENGINE_NAME = 'LODASH';
+        _ = lodash;
+
+        testTemplate(loader, 'output-engine-name.html', {
+            query: {
+                engine: 'underscore',
+                withImports: true
+            }
+        }, function (output) {
+            var outputEngineName = requireFromString(output, 'output-engine-name');
+
+            assert.equal('UNDERSCORE', outputEngineName());
+
+            delete _;
+            delete underscore.ENGINE_NAME;
+            delete lodash.ENGINE_NAME;
+
+            done();
+        });
+    });
+
+    it('should include the required engine as `_` when withImports is false', function (done) {
+        underscore.ENGINE_NAME = 'UNDERSCORE';
+        lodash.ENGINE_NAME = 'LODASH';
+        _ = lodash;
+
+        testTemplate(loader, 'output-engine-name.html', {
+            query: {
+                engine: 'underscore',
+                withImports: false
+            }
+        }, function (output) {
+            var outputEngineName = requireFromString(output, 'output-engine-name');
+
+            assert.equal('UNDERSCORE', outputEngineName());
+
+            delete _;
+            delete underscore.ENGINE_NAME;
+            delete lodash.ENGINE_NAME;
+
+            done();
+        });
+    });
+
     // FIXME: Changing the underscore tags changes it globally
     it('should allow custom underscore tags', function (done) {
         testTemplate(loader, 'custom-tags.html', {
