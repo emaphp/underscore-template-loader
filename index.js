@@ -77,7 +77,7 @@ module.exports = function(content) {
   }
 
   // Include additional macros
-  if (_.isObject(this.options.macros)) {
+  if (this.options && _.isObject(this.options.macros)) {
     _.extend(macros, this.options.macros);
   }
 
