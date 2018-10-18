@@ -320,6 +320,8 @@ We can include additional macros by defining them in the webpack configuration f
 
 ```javascript
 // File: webpack.config.js
+const webpack = require('webpack');
+
 module.exports = {
     // ...
 
@@ -330,11 +332,18 @@ module.exports = {
         }
     },
 
-    macros: {
-        copyright: function () {
-            return "'<p>Copyright FakeCorp 2014 - 2016</p>'";
-        }
-    }
+    plugins: [
+        // ...
+        new webpack.LoaderOptionsPlugin({
+            options: {
+                macros: {
+                    copyright: function () {
+                        return "'<p>Copyright FakeCorp 2014 - 2018</p>'";
+                    },
+                },
+            },
+        }),
+    ],
 }
 ```
 
