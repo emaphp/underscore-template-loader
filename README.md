@@ -427,6 +427,23 @@ Translates to
 <br>
 ```
 
+### Just an example of requiring template with dynamic arguments
+
+```javascript
+<%
+    const title = 'Some ' + 'title';
+    const headFileName = htmlWebpackPlugin.options.headFileName || 'head.ejs';
+
+    function objExtend(args, obj) {
+        args = Array.prototype.slice.call(args);
+        args[0] = Object.assign(obj, args[0]);
+        return args;
+    };
+%>
+
+<%= require(`./structure/${headFileName}`).apply(null, objExtend(arguments, { title })) %>
+```
+
 #### Known issues
 
  * Trying to use different template settings (interpolate, escape, evaluate) for different extensions. Underscore / Lodash template settings are defined globally.
