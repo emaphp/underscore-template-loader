@@ -1,17 +1,17 @@
 /* This loader returns the filename if no loader takes care of the file */
 'use strict';
 
-var loaderUtils = require('loader-utils');
+const {
+  parseQuery
+} = require('loader-utils');
 
-module.exports = function (source) {
+module.exports = source => {
   if (this.cacheable) {
     this.cacheable();
   }
-  var query = this.query instanceof Object ? this.query : loaderUtils.parseQuery(this.query);
+  const query = this.query instanceof Object ? this.query : parseQuery(this.query);
+  const allLoadersButThisOne = this.loaders.filter((loader) => loader.module !== module.exports);
 
-  var allLoadersButThisOne = this.loaders.filter(function(loader) {
-    return loader.module !== module.exports;
-  });
   // This loader shouldn't kick in if there is any other loader
   if (allLoadersButThisOne.length > 0) {
     return source;

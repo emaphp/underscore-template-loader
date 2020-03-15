@@ -1,10 +1,12 @@
-var path = require('path');
-var loaderUtils = require('loader-utils');
-var attributeParser = require('./lib/attributeParser');
-var macroParser = require('./lib/macroParser');
+const {
+  relative
+} = require('path');
+const loaderUtils = require('loader-utils');
+const attributeParser = require('./lib/attributeParser');
+const macroParser = require('./lib/macroParser');
 
 // Try getting underscore first, then lodash
-var _;
+let _;
 try {
   _ = require('underscore');
 } catch (e) {
@@ -16,18 +18,19 @@ var macros = _.extend({}, require('./lib/macros'));
 
 module.exports = function(content) {
   this.cacheable && this.cacheable();
-  var callback = this.async();
+  const callback = this.async();
 
   // Default arguments
   var root,
-      parseMacros = true,
-      engine = false,
-      withImports = false,
-      attributes = ['img:src'],
-      parseDynamicRoutes = false;
+    parseMacros = true,
+    engine = false,
+    withImports = false,
+    attributes = ['img:src'],
+    parseDynamicRoutes = false;
 
   // Parse arguments
-  var query = this.query instanceof Object ? this.query : loaderUtils.parseQuery(this.query);
+  // const options = loaderUtils.getOptions(this);
+  const query = this.query instanceof Object ? this.query : loaderUtils.parseQuery(this.query || '?');
 
   if (_.isObject(query)) {
     root = query.root;
@@ -66,7 +69,7 @@ module.exports = function(content) {
 
     // Prepend a html comment with the filename in it
     if (query.prependFilenameComment) {
-      var filenameRelative = path.relative(query.prependFilenameComment, this.resource);
+      var filenameRelative = relative(query.prependFilenameComment, this.resource);
       content = "\n<!-- " + filenameRelative + " -->\n" + content;
     }
 
@@ -76,21 +79,30 @@ module.exports = function(content) {
     }
   }
 
-  // Include additional macros
+  // Include additional macros (deprecated: https://webpack.js.org/api/loaders/#thisoptions)
   if (this.options && _.isObject(this.options.macros)) {
     _.extend(macros, this.options.macros);
   }
 
-  // Parse macros
+  if (this.options && this.options.extend) {
+    try {
+      require.resolve(this.options.extend);
+    } catch (e) {
+      throw e;
+    }
+
+    _.extend(macros, require(this.options.extend));
+  }
+
+  // parse macros
+  let macrosContext;
   if (parseMacros) {
-    var macrosContext = macroParser(content, function (macro) {
-      return _.isFunction(macros[macro]);
-    }, 'MACRO');
+    macrosContext = macroParser(content, (macro) => _.isFunction(macros[macro]), 'MACRO');
     content = macrosContext.replaceMatches(content);
   }
 
   // Parse attributes
-  var attributesContext = attributeParser(content, function (tag, attr) {
+  var attributesContext = attributeParser(content, function(tag, attr) {
     return attributes.indexOf(tag + ':' + attr) != -1;
   }, 'ATTRIBUTE', root, parseDynamicRoutes);
   content = attributesContext.replaceMatches(content);

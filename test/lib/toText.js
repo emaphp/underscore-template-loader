@@ -1,5 +1,5 @@
 // Transforms a value to an expected text
-function toText (value) {
+const toText = value => {
   if (value instanceof Array) {
     return value.map(toText).join(',');
   } else if (value instanceof Object) {
@@ -11,6 +11,6 @@ function toText (value) {
   } else {
     return value + '';
   }
-}
+};
 
 module.exports = toText;
