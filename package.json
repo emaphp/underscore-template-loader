@@ -1,6 +1,6 @@
 {
   "name": "underscore-template-loader",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "An Underscore and Lodash template loader for Webpack",
   "main": "index.js",
   "homepage": "https://github.com/emaphp/underscore-template-loader",
@@ -34,15 +34,15 @@
     "url": "https://github.com/emaphp/underscore-template-loader.git"
   },
   "dependencies": {
-    "fastparse": "^1.1.1",
-    "loader-utils": "^0.2.11"
+    "fastparse": "^1.1.2",
+    "loader-utils": "^1.4.0"
   },
   "devDependencies": {
-    "chai": "^3.2.0",
-    "chai-string": "^1.1.2",
+    "chai": "^4.2.0",
+    "chai-string": "^1.5.0",
     "istanbul": "^0.3.18",
-    "mocha": "^2.2.5",
-    "underscore": "^1.8.3"
+    "mocha": "^7.1.0",
+    "underscore": "^1.9.2"
   },
   "scripts": {
     "test": "mocha",
