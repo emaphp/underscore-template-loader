@@ -80,6 +80,9 @@ module.exports = function(content) {
   if (this.options && _.isObject(this.options.macros)) {
     _.extend(macros, this.options.macros);
   }
+  if (this.query && _.isObject(this.query.macros)) {
+    _.extend(macros, this.query.macros);
+  }
 
   // Parse macros
   if (parseMacros) {
