@@ -6,6 +6,7 @@ An Underscore.js and Lodash template loader for Webpack
 ### Changelog
 
 <br>
+ * 1.1: Support macros through `query` (thx @JimYan, @devlinjunker)
  * 1.0: Loader now works with Webpack 4. Still a beta release.
 
 ### Installation
