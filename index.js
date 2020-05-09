@@ -74,6 +74,11 @@ module.exports = function(content) {
     if (query.parseDynamicRoutes !== undefined) {
       parseDynamicRoutes = !!query.parseDynamicRoutes;
     }
+
+    // support macros in loader options. because it isn't support customer options from webpack@4
+    if (_.isObject(query.macros)) {
+      _.extend(macros, query.macros);
+    }
   }
 
   // Include additional macros

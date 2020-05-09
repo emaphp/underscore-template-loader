@@ -200,4 +200,19 @@ describe('macro', function () {
       done();
     });
   });
+
+  it('support macros in query', function (done) {
+    testTemplate(loader, 'macro_in_query.html', {
+      query: {
+        macros: {
+          testquery: function () {
+            return '"Ok"';
+          }
+        }
+      }
+    }, function (output) {
+      assert.equal(output, loadOutput('macro_in_query.txt'));
+      done();
+    });
+  });
 });
