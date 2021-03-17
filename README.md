@@ -320,6 +320,8 @@ We can include additional macros by defining them in the webpack configuration f
 
 ```javascript
 // File: webpack.config.js
+const webpack = require('webpack');
+
 module.exports = {
     // ...
 
@@ -330,11 +332,18 @@ module.exports = {
         }
     },
 
-    macros: {
-        copyright: function () {
-            return "'<p>Copyright FakeCorp 2014 - 2016</p>'";
-        }
-    }
+    plugins: [
+        // ...
+        new webpack.LoaderOptionsPlugin({
+            options: {
+                macros: {
+                    copyright: function () {
+                        return "'<p>Copyright FakeCorp 2014 - 2018</p>'";
+                    },
+                },
+            },
+        }),
+    ],
 }
 ```
 
@@ -416,6 +425,23 @@ Translates to
 <br><br><br>
 @nl()
 <br>
+```
+
+### Just an example of requiring template with dynamic arguments
+
+```javascript
+<%
+    const title = 'Some ' + 'title';
+    const headFileName = htmlWebpackPlugin.options.headFileName || 'head.ejs';
+
+    function objExtend(args, obj) {
+        args = Array.prototype.slice.call(args);
+        args[0] = Object.assign(obj, args[0]);
+        return args;
+    };
+%>
+
+<%= require(`./structure/${headFileName}`).apply(null, objExtend(arguments, { title })) %>
 ```
 
 #### Known issues
