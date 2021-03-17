@@ -7,7 +7,7 @@ function WebpackLoaderMock (options) {
   this.options = options.options || {};
   this.resource = options.resource;
   this._asyncCallback = options.async;
-    this._resolveStubs = options.resolveStubs || {};
+  this._resolveStubs = options.resolveStubs || {};
 }
 
 WebpackLoaderMock.prototype.async = function () {

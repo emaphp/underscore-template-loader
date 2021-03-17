@@ -1,7 +1,7 @@
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
 with(obj||{}){
-__p+='<link rel="stylesheet" href="' + require("%%LOADER%%?url=style.css!./style.css") + '">\n<img src="' + require("%%LOADER%%?url=test.png!./test.png") + '">\n';
+__p+='<link rel="stylesheet" href="' + require("./style.css") + '">\n<img src="' + require("./test.png") + '">\n';
 }
 return __p;
 };
