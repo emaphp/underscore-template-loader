@@ -11,7 +11,7 @@ var loadOutput = require('./lib/loadOutput');
 
 function testTemplate(loader, template, options, testFn) {
   loader.call(new WebpackLoaderMock({
-    query: options.query,
+    query: options.query || '?',
     resource: path.join(__dirname, 'templates', template),
     options: options.options,
     async: function (err, source) {

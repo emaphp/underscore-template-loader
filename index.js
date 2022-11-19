@@ -27,7 +27,7 @@ module.exports = function(content) {
       parseDynamicRoutes = false;
 
   // Parse arguments
-  var query = this.query instanceof Object ? this.query : loaderUtils.parseQuery(this.query);
+  var query = this.query instanceof Object ? this.query : loaderUtils.parseQuery(this.query || '?');
 
   if (_.isObject(query)) {
     root = query.root;

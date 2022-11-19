@@ -7,7 +7,7 @@ module.exports = function (source) {
   if (this.cacheable) {
     this.cacheable();
   }
-  var query = this.query instanceof Object ? this.query : loaderUtils.parseQuery(this.query);
+  var query = this.query instanceof Object ? this.query : loaderUtils.parseQuery(this.query || '?');
 
   var allLoadersButThisOne = this.loaders.filter(function(loader) {
     return loader.module !== module.exports;
